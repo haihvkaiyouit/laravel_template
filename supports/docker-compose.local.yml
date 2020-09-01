@@ -1,0 +1,38 @@
+version: '2'
+services:
+  nginx:
+    build: docker_images/nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./public:/var/www/html/public:cached
+  php:
+    build:
+      context: docker_images/php
+    volumes:
+      - ./:/var/www/html:cached
+  mysql-docker:
+    build: docker_images/mysql
+    environment:
+      MYSQL_DATABASE: menuapp_local
+      MYSQL_USER: menuapp
+      MYSQL_PASSWORD: 123456
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 2000:3306
+    volumes:
+      - /usr/shared/{PROJECT_NAME}/mysql:/var/lib/mysql
+  redis-docker:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - /usr/shared/{PROJECT_NAME}/redis:/data
+    command: redis-server --requirepass 123456
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql-docker
+      PMA_PORT: 3306
+    ports:
+      - 4000:80
