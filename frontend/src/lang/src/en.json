@@ -1,0 +1,8 @@
+{
+    "common": {
+        "test": "test"
+    },
+    "admin": {
+        "dashboard": "dashboard en"
+    }
+}
