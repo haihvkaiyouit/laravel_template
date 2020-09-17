@@ -27,10 +27,7 @@ export default {
     }
   },
   created () {
-    this.api({
-      method: this.$c.API.METHOD.GET,
-      baseURL: 'https://jsonplaceholder.typicode.com/todos/1'
-    })
+    this.getApi('https://jsonplaceholder.typicode.com/todos/1')
   }
 }
 </script>
